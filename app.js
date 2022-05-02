@@ -23,6 +23,7 @@ function renderGames() {
 function renderStats() {
     statsList.textContent = '';
     for (let item of stats) {
+        console.log(item);
         const li = renderStat(item);
         statsList.appendChild(li);
     }
@@ -40,11 +41,12 @@ form.addEventListener('submit', (e) => {
     // { player: 'Bob', points: 2 }
     const gameData = new FormData(form);
     let game = {
-        name: gameData.get('player'),
-        points: gameData.get('point')
+        player: gameData.get('player'),
+        points: gameData.get('points'),
     };
-    games.push(game);
-    console.log('list of games', games);
+    stats.push(game);
+    renderStats();
+    form.reset();
     // Hint -- create the object from the form, push it onto the stats array, then call renderStats
 });
 
