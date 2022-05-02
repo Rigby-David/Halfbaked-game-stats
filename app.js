@@ -42,7 +42,7 @@ form.addEventListener('submit', (e) => {
     const gameData = new FormData(form);
     let game = {
         player: gameData.get('player'),
-        points: Number(gameData.get('points')),
+        points: gameData.get('points'),
     };
     stats.push(game);
     renderStats();
@@ -64,15 +64,17 @@ save.addEventListener('click', () => {
     let totalPoints = 0;
     // // // Loop through the list of stats and add up the total points scored
     for (let stat of stats) {
-        totalPoints += stat.points;
+        totalPoints += Number(stat.points);
     }
-    games.push({ number: games.length + 1, totalPoints });
-    renderGames();
-    resetStats();
-    console.log(save);
     // Create a new object with the game number and the total points
     // { number: games.length + 1, totalPoints: totalPoints }
-    
+    let game = {
+        number: games.length + 1,
+        totalPoints: totalPoints,
+    };
+    games.push(game);
+    renderGames();
+    resetStats();
     // Push the new object onto the games array then call renderGames
     // reset the stats with resetStats
 });
