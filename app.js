@@ -42,7 +42,7 @@ form.addEventListener('submit', (e) => {
     const gameData = new FormData(form);
     let game = {
         player: gameData.get('player'),
-        points: gameData.get('points'),
+        points: Number(gameData.get('points')),
     };
     stats.push(game);
     renderStats();
@@ -52,15 +52,27 @@ form.addEventListener('submit', (e) => {
 
 remove.addEventListener('click', () => {
     // Step 2 -- add code to allow users to remove the most recent stat
+    stats.pop();
+    console.log(stats);
+    renderStats();
     // Hint -- how do you remove an element from an array?
     // Hint -- how can we rerender the stats using a function above?
 });
 
 save.addEventListener('click', () => {
     // Step 3 - add code to allow users to save the state
-    // Loop through the list of stats and add up the total points scored
+    let totalPoints = 0;
+    // // // Loop through the list of stats and add up the total points scored
+    for (let stat of stats) {
+        totalPoints += stat.points;
+    }
+    games.push({ number: games.length + 1, totalPoints });
+    renderGames();
+    resetStats();
+    console.log(save);
     // Create a new object with the game number and the total points
     // { number: games.length + 1, totalPoints: totalPoints }
+    
     // Push the new object onto the games array then call renderGames
     // reset the stats with resetStats
 });
